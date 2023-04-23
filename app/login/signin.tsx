@@ -8,19 +8,22 @@ export default function Signin() {
     console.log("Asdf");
   };
 
+  const getdata = async () => {
+    const resp = await fetch("/api/auth");
+    const data = await resp.json();
+    console.log(data);
+  };
+
   return (
     <form
       action=""
       className="flex flex-col mt-2 justify-center items-center"
       onSubmit={submitForm}
     >
-      <label htmlFor="username" className="my-2 w-full">
-        Username
-      </label>
+      <label className="my-2 w-full">Username</label>
       <input
         type="text"
         required
-        id="username"
         className="w-full py-2 rounded-md outline-none border-[2px] px-2 border-gray-500"
       />
 
@@ -31,7 +34,6 @@ export default function Signin() {
         <input
           type={`${visible ? "text" : "password"}`}
           required
-          id="username"
           className="w-full py-2 rounded-md outline-none border-[2px] px-2 border-gray-500"
         />
         <button
@@ -80,7 +82,10 @@ export default function Signin() {
           )}
         </button>
       </div>
-      <button className="w-full mt-5 px-5 py-3 bg-black text-white">
+      <button
+        className="w-full mt-5 px-5 py-3 bg-black text-white"
+        onClick={getdata}
+      >
         submit
       </button>
     </form>

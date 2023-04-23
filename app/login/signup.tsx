@@ -4,19 +4,26 @@ import React, { useState } from "react";
 function Signup() {
   const [isadmin, setisadmin] = useState(false);
   const [visible, setvisible] = useState(false);
-  const submitForm = (e: React.FormEvent) => {
+  const Createuser = async (e: React.FormEvent) => {
     e.preventDefault();
+    const resp = await fetch("/api/auth", {
+      method: "POST",
+      headers: {
+        Accept: "application.json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: visible }),
+    });
   };
   console.log(isadmin);
 
   return (
-    <form className="flex flex-col mt-2 " onSubmit={(e) => submitForm(e)}>
+    <form className="flex flex-col mt-2 " onSubmit={(e) => Createuser(e)}>
       <label htmlFor="isadminname" className="my-2">
         Admin's name
       </label>
       <input
         type="text"
-        id="isadminname"
         className="w-full py-2 outline-none border-[2px] px-2 border-gray-500"
       />
       <label htmlFor="password" className="my-2">
@@ -25,7 +32,6 @@ function Signup() {
       <div className="relative w-full">
         <input
           type="password"
-          id="isadminname"
           className="py-2 w-full outline-none border-[2px] px-2 border-gray-500"
         />
         <button
