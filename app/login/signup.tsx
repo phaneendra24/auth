@@ -20,7 +20,7 @@ function Signup() {
   return (
     <form className="flex flex-col mt-2 " onSubmit={(e) => Createuser(e)}>
       <label htmlFor="isadminname" className="my-2">
-        Admin's name
+        Admin&apos;s name
       </label>
       <input
         type="text"
