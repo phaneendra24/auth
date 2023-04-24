@@ -3,7 +3,7 @@ import { useState } from "react";
 import Signin from "./signin";
 import Signup from "./signup";
 
-export default function login() {
+export default function Login() {
   const [user, setuser] = useState(true);
   return (
     <div className="w-full flex flex-col justify-center items-center">
