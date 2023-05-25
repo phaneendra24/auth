@@ -2,37 +2,47 @@
 import React, { useState } from "react";
 
 function Signup() {
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
   const [isadmin, setisadmin] = useState(false);
   const [visible, setvisible] = useState(false);
+  const [created, setcreated] = useState(false);
   const Createuser = async (e: React.FormEvent) => {
     e.preventDefault();
-    const resp = await fetch("/api/auth", {
-      method: "POST",
-      headers: {
-        Accept: "application.json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: visible }),
-    });
+    if (username !== "") {
+      const resp = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          Accept: "application.json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username, password: password }),
+      });
+      console.log(resp);
+      setcreated(true);
+    }
   };
-  console.log(isadmin);
 
   return (
     <form className="flex flex-col mt-2 " onSubmit={(e) => Createuser(e)}>
       <label htmlFor="isadminname" className="my-2">
-        Admin&apos;s name
+        {isadmin ? <>admin&apos;s name</> : <>username</>}
       </label>
       <input
         type="text"
         className="w-full py-2 outline-none border-[2px] px-2 border-gray-500"
+        onChange={(e) => setusername(e.currentTarget.value)}
+        required
       />
       <label htmlFor="password" className="my-2">
         password
       </label>
       <div className="relative w-full">
         <input
-          type="password"
-          className="py-2 w-full outline-none border-[2px] px-2 border-gray-500"
+          required
+          type={`${visible ? "text" : "password"}`}
+          className={`py-2 w-full outline-none border-[2px] px-2 border-gray-500`}
+          onChange={(e) => setpassword(e.currentTarget.value)}
         />
         <button
           type="button"
@@ -115,9 +125,19 @@ function Signup() {
           </label>
         </span>
       </div>
-      <button className="w-full mt-5 px-5 py-3 bg-black text-white">
+      <button
+        className="w-full mt-5 px-5 py-3 bg-black text-white"
+        type="submit"
+      >
         create
       </button>
+      <div
+        className={`text-green-600 animate-bounce mt-3 ${
+          created ? "visible" : "invisible"
+        } text-center `}
+      >
+        user created!
+      </div>
     </form>
   );
 }

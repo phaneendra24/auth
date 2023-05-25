@@ -1,17 +1,33 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export default function Signin() {
+  const router = useRouter();
+  const [username, setusername] = useState("");
+  const [pwd, setpwd] = useState("");
   const [visible, setvisible] = useState(false);
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Asdf");
   };
 
-  const getdata = async () => {
-    const resp = await fetch("/api/auth");
-    const data = await resp.json();
-    console.log(data);
+  const signinsubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const resp = await fetch("http://localhost:3000/api/auth/signin/", {
+      method: "POST",
+      headers: {
+        Accept: "application.json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: pwd }),
+    });
+    const reqStatus = await resp.json();
+    if (resp.status === 200) {
+      router.push("/");
+    }
   };
 
   return (
@@ -25,6 +41,7 @@ export default function Signin() {
         type="text"
         required
         className="w-full py-2 rounded-md outline-none border-[2px] px-2 border-gray-500"
+        onChange={(e) => setusername(e.currentTarget.value)}
       />
 
       <label htmlFor="password" className="my-2 w-full">
@@ -35,13 +52,13 @@ export default function Signin() {
           type={`${visible ? "text" : "password"}`}
           required
           className="w-full py-2 rounded-md outline-none border-[2px] px-2 border-gray-500"
+          onChange={(e) => setpwd(e.currentTarget.value)}
         />
         <button
           type="button"
           className=" absolute top-[30%] right-2 cursor-pointer"
           onClick={() => {
             setvisible(!visible);
-            console.log("click");
           }}
         >
           {visible ? (
@@ -84,7 +101,7 @@ export default function Signin() {
       </div>
       <button
         className="w-full mt-5 px-5 py-3 bg-black text-white"
-        onClick={getdata}
+        onClick={signinsubmit}
       >
         submit
       </button>
