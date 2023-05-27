@@ -1,17 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+
+import { useStore } from "../store";
 
 export default function Signin() {
   const router = useRouter();
   const [username, setusername] = useState("");
   const [pwd, setpwd] = useState("");
   const [visible, setvisible] = useState(false);
-  const submitForm = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+
+  const [id, updateid] = useStore((state: any) => [state.id, state.updateid]);
 
   const signinsubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ export default function Signin() {
       },
       body: JSON.stringify({ username: username, password: pwd }),
     });
-    const reqStatus = await resp.json();
+    const data = await resp.json();
     if (resp.status === 200) {
       router.push("/");
     }
@@ -34,7 +35,7 @@ export default function Signin() {
     <form
       action=""
       className="flex flex-col mt-2 justify-center items-center"
-      onSubmit={submitForm}
+      onSubmit={signinsubmit}
     >
       <label className="my-2 w-full">Username</label>
       <input

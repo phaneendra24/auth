@@ -38,7 +38,6 @@ export async function POST(Request: Request, res: NextApiResponse) {
       );
     }
     const token = jwt.sign({ id: user?.id }, key);
-    console.log(token);
 
     const serializedData = serialize("jwttoken", token, {
       httpOnly: true,
@@ -49,7 +48,7 @@ export async function POST(Request: Request, res: NextApiResponse) {
     });
     const response = NextResponse.json(
       {
-        submitted: true,
+        id: user?.id,
       },
       {
         status: 200,
@@ -59,6 +58,7 @@ export async function POST(Request: Request, res: NextApiResponse) {
     response.headers.set("set-Cookie", serializedData);
     return response;
   } catch (e) {
+    console.log(e);
     return NextResponse.json({ error: "something went wrong" });
   }
 }
