@@ -26,6 +26,8 @@ export default function Signin() {
       body: JSON.stringify({ username: username, password: pwd }),
     });
     const data = await resp.json();
+    console.log(data);
+
     if (resp.status === 200) {
       router.push("/");
     }
