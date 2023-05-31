@@ -4,14 +4,7 @@ import jwt from "jsonwebtoken";
 import { NextApiResponse } from "next";
 import { serialize } from "cookie";
 
-let key = "asdfasdfasdfasdfsdfoisdfonaofbaornasdfasdfadsf";
-
-type usertype = {
-  id: string;
-  username: string;
-  role: string;
-};
-
+const secret = process.env.SECRET;
 export async function POST(Request: Request, res: NextApiResponse) {
   const req = await Request.json();
   const username: string = req.username;
@@ -37,7 +30,7 @@ export async function POST(Request: Request, res: NextApiResponse) {
         }
       );
     }
-    const token = jwt.sign({ id: user?.id }, key);
+    const token = jwt.sign({ id: user?.id }, `${secret}`);
 
     const serializedData = serialize("jwttoken", token, {
       httpOnly: true,

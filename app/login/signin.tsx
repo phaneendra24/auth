@@ -25,10 +25,9 @@ export default function Signin() {
       },
       body: JSON.stringify({ username: username, password: pwd }),
     });
-    const data = await resp.json();
-    console.log(data);
-
+    const { id } = await resp.json();
     if (resp.status === 200) {
+      updateid(id);
       router.push("/");
     }
   };

@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Providers from "./utils/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,9 +14,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const logout = async () => {
+    const resp = await fetch("http://localhost:3000/api/auth/logout");
+  };
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

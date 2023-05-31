@@ -11,19 +11,9 @@ export async function middleware(req: NextRequest) {
     const id = verifyStatus.payload.id;
     const path = req.nextUrl.pathname;
     if (verifyStatus && path !== "/login") {
-      const resp = await fetch("http://localhost:3000/api/auth/dashboard", {
-        method: "POST",
-        headers: {
-          Accept: "application.json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-        }),
-      });
-      const user = await resp.json();
+      console.log("validated");
+
       return NextResponse.next();
-      // return NextResponse.json({ message: user }, { status: 200 });
     }
     return NextResponse.redirect("http:localhost:3000/login");
   } catch (e) {
