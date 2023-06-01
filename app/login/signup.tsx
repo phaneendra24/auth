@@ -20,7 +20,9 @@ function Signup() {
         body: JSON.stringify({ username: username, password: password }),
       });
       console.log(resp);
-      setcreated(true);
+      if (resp) {
+        setcreated(true);
+      }
     }
   };
 

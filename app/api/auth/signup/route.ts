@@ -15,6 +15,8 @@ export async function POST(request: Request) {
         },
       },
     });
+    console.log(resp);
+
     return NextResponse.json({ success: "user created successfully!" });
   } catch (e) {
     return NextResponse.json({ error: "enter unique" });
