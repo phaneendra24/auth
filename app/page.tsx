@@ -1,43 +1,18 @@
 "use client";
 
-import { useState } from "react";
-
-import { DOMAIN } from "./utils/url";
+import Getuserdata from "./components/getuserdata";
 
 export default function Home() {
   console.log("re-rendering");
-  const [name, setname] = useState("");
-  const [role, setrole] = useState("");
-  const fetchdata = async () => {
-    const resp = await fetch(`${DOMAIN}/api/auth/dashboard`, {
-      method: "POST",
-      headers: {
-        Accept: "application.json",
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await resp.json();
-    setname(data.username);
-    setrole(data.role);
-    return data;
-  };
-  const userdata = fetchdata();
+
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center">
-      <div className=" w-[35%] flex flex-col gap-5">
-        <div>Welcome to the dashboard!</div>
-        <div className="flex justify-between gap-5 pr-[50%]">
-          <div className="border-[0.6px] w-fit p-1 rounded-lg border-white">
-            name
-          </div>
-          <span> {name}</span>
-        </div>
-        <div className="flex justify-between gap-5 pr-[50%]">
-          <div className="border-[0.6px] w-fit p-1 rounded-lg border-white">
-            role
-          </div>
-          <span> {role}</span>
-        </div>
+    <div className=" first-letter:w-full h-[100vh] w-full flex flex-col gap-10 justify-center items-center">
+      <div className="bg-gray-700 w-fit text-center p-1">Dashboard✨</div>
+      <div className="rounded-xl bg-gray-700 w-fit min-w-[40%] h-40 p-5">
+        <Getuserdata />
+        <button className="absolute top-10 right-5 sm:right-10 bg-gray-800 p-2">
+          Logout
+        </button>
       </div>
     </div>
   );

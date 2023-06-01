@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 import { useStore } from "../store";
@@ -9,6 +8,8 @@ import { DOMAIN } from "../utils/url";
 
 export default function Signin() {
   const router = useRouter();
+  const [isadmin, setisadmin] = useState(false);
+
   const [username, setusername] = useState("");
   const [pwd, setpwd] = useState("");
   const [visible, setvisible] = useState(false);
@@ -29,7 +30,7 @@ export default function Signin() {
     const { id } = await resp.json();
     if (resp.status === 200) {
       updateid(id);
-      router.push("/");
+      router.push(`${DOMAIN}`);
     }
   };
 
@@ -101,6 +102,45 @@ export default function Signin() {
             </svg>
           )}
         </button>
+
+        <div className="flex my-3">
+          <span className="w-[50%] flex justify-center items-center">
+            <button
+              className={`border-2 border-gray-950 rounded-full p-2 ${
+                isadmin ? "" : "bg-gray-700 border-black "
+              }`}
+              onClick={() => {
+                setisadmin(false);
+              }}
+            ></button>
+            <label
+              htmlFor=""
+              className={`ml-2 underline-offset-4 ${
+                isadmin ? "" : "underline"
+              }`}
+            >
+              user
+            </label>
+          </span>
+          <span className="w-[50%] flex justify-center items-center">
+            <button
+              className={`border-2 border-gray-950 rounded-full p-2 ${
+                isadmin ? "bg-gray-700 border-black " : ""
+              }`}
+              onClick={() => {
+                setisadmin(true);
+              }}
+            ></button>
+            <label
+              htmlFor=""
+              className={`ml-2 underline-offset-4 ${
+                isadmin ? "underline" : ""
+              }`}
+            >
+              Admin
+            </label>
+          </span>
+        </div>
       </div>
       <button
         className="w-full mt-5 px-5 py-3 bg-black text-white"

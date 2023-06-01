@@ -9,8 +9,6 @@ import { serialize } from "cookie";
 export async function POST(req: NextRequest) {
   try {
     const token = req.cookies.get("jwttoken")?.value || "nill";
-    console.log("token", token);
-
     const decodeJwt = jose.decodeJwt(token);
     let id: any = decodeJwt.id;
     const user = await prisma.user.findUnique({
@@ -19,11 +17,6 @@ export async function POST(req: NextRequest) {
       },
     });
     console.log(user);
-    // let user = {
-    //   id: "asdfasdfajbasdfnaldsnf",
-    //   username: "phani",
-    //   role: "user",
-    // };
 
     return NextResponse.json(user, {
       status: 200,
