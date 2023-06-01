@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { baseUrl } from "../utils/url";
+import { DOMAIN } from "../utils/url";
 
 function Signup() {
   const [username, setusername] = useState("");
@@ -11,7 +11,7 @@ function Signup() {
   const Createuser = async (e: React.FormEvent) => {
     e.preventDefault();
     if (username !== "") {
-      const resp = await fetch(`${baseUrl}/api/auth/signup`, {
+      const resp = await fetch(`${DOMAIN}/api/auth/signup`, {
         method: "POST",
         headers: {
           Accept: "application.json",

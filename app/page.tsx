@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 
-import { baseUrl } from "./utils/url";
+import { DOMAIN } from "./utils/url";
 
 export default function Home() {
   console.log("re-rendering");
   const [name, setname] = useState("");
   const [role, setrole] = useState("");
   const fetchdata = async () => {
-    const resp = await fetch(`${baseUrl}/api/auth/dashboard`, {
+    const resp = await fetch(`${DOMAIN}/api/auth/dashboard`, {
       method: "POST",
       headers: {
         Accept: "application.json",
