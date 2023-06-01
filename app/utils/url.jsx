@@ -7,4 +7,4 @@ export const DOMAIN = vercel_public_domain
   ? vercel_public_domain
   : node_prod_env
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  : "http://localhost:3000";

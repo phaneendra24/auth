@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import * as jose from "jose";
+import { DOMAIN } from "./app/utils/url";
 
 const secret = new TextEncoder().encode(process.env.SECRET);
 
@@ -15,10 +16,10 @@ export async function middleware(req: NextRequest) {
 
       return NextResponse.next();
     }
-    return NextResponse.redirect("http:localhost:3000/login");
+    return NextResponse.redirect(`${DOMAIN}/login`);
   } catch (e) {
     console.log(e);
-    return NextResponse.redirect("http://localhost:3000/login");
+    return NextResponse.redirect(`${DOMAIN}/login`);
   }
 }
 
