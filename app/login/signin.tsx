@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 import { useStore } from "../store";
+import { baseUrl } from "../utils/url";
 
 export default function Signin() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function Signin() {
   const signinsubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const resp = await fetch("api/auth/signin/", {
+    const resp = await fetch(`${baseUrl}/api/auth/signin/`, {
       method: "POST",
       headers: {
         Accept: "application.json",
