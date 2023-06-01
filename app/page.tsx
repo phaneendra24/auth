@@ -7,7 +7,7 @@ export default function Home() {
   const [name, setname] = useState("");
   const [role, setrole] = useState("");
   const fetchdata = async () => {
-    const resp = await fetch("http://localhost:3000/api/auth/dashboard", {
+    const resp = await fetch("/api/auth/dashboard", {
       method: "POST",
       headers: {
         Accept: "application.json",

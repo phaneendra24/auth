@@ -17,7 +17,7 @@ export default function Signin() {
   const signinsubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const resp = await fetch("http://localhost:3000/api/auth/signin/", {
+    const resp = await fetch("api/auth/signin/", {
       method: "POST",
       headers: {
         Accept: "application.json",
