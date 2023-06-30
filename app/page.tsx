@@ -3,7 +3,6 @@
 import Getuserdata from "./components/getuserdata";
 
 export default function Home() {
-  console.log("re-rendering");
 
   return (
     <div className=" first-letter:w-full h-[100vh] w-full flex flex-col gap-10 justify-center items-center">

@@ -7,8 +7,11 @@ function Signup() {
   const [password, setpassword] = useState("");
   const [isadmin, setisadmin] = useState(false);
   const [visible, setvisible] = useState(false);
-  const [created, setcreated] = useState(false);
+  const [created, setcreated] = useState(true);
+  console.log(isadmin);
+  
   const Createuser = async (e: React.FormEvent) => {
+    setcreated(false)
     e.preventDefault();
     if (username !== "") {
       const resp = await fetch(`${DOMAIN}/api/auth/signup`, {
@@ -17,9 +20,11 @@ function Signup() {
           Accept: "application.json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify({ username: username, password: password,role : isadmin}),
       });
-      console.log(resp);
+      const data = await resp.json()
+      console.log(data);
+      
       if (resp) {
         setcreated(true);
       }
@@ -97,6 +102,7 @@ function Signup() {
       <div className="flex my-3">
         <span className="w-[50%] flex justify-center items-center">
           <button
+          type="button"
             className={`border-2 border-gray-950 rounded-full p-2 ${
               isadmin ? "" : "bg-gray-700 border-black "
             }`}
@@ -112,7 +118,7 @@ function Signup() {
           </label>
         </span>
         <span className="w-[50%] flex justify-center items-center">
-          <button
+          <button type="button"
             className={`border-2 border-gray-950 rounded-full p-2 ${
               isadmin ? "bg-gray-700 border-black " : ""
             }`}
@@ -129,18 +135,12 @@ function Signup() {
         </span>
       </div>
       <button
-        className="w-full mt-5 px-5 py-3 bg-black text-white"
+        className={`w-full mt-5 px-5 py-3 bg-black text-white ${created ? '' :'disabled cursor-not-allowed opacity-30 animate-pulse'}`}
         type="submit"
       >
         create
       </button>
-      <div
-        className={`text-green-600 animate-bounce mt-3 ${
-          created ? "visible" : "invisible"
-        } text-center `}
-      >
-        user created!
-      </div>
+   
     </form>
   );
 }

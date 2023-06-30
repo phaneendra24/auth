@@ -25,12 +25,14 @@ export default function Signin() {
         Accept: "application.json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username: username, password: pwd }),
+      body: JSON.stringify({ username: username, password: pwd,role : isadmin }),
     });
-    const { id } = await resp.json();
+    const data = await resp.json();
+    console.log(data);
+    
     if (resp.status === 200) {
-      updateid(id);
-      router.push(`${DOMAIN}`);
+      updateid(data.id);
+      router.push("/")
     }
   };
 
@@ -60,7 +62,7 @@ export default function Signin() {
         />
         <button
           type="button"
-          className=" absolute top-[30%] right-2 cursor-pointer"
+          className=" absolute top-[10%] right-2 cursor-pointer"
           onClick={() => {
             setvisible(!visible);
           }}
@@ -105,7 +107,7 @@ export default function Signin() {
 
         <div className="flex my-3">
           <span className="w-[50%] flex justify-center items-center">
-            <button
+            <button type="button"
               className={`border-2 border-gray-950 rounded-full p-2 ${
                 isadmin ? "" : "bg-gray-700 border-black "
               }`}
@@ -123,7 +125,7 @@ export default function Signin() {
             </label>
           </span>
           <span className="w-[50%] flex justify-center items-center">
-            <button
+            <button type="button"
               className={`border-2 border-gray-950 rounded-full p-2 ${
                 isadmin ? "bg-gray-700 border-black " : ""
               }`}

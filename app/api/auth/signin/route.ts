@@ -5,15 +5,22 @@ import { NextApiResponse } from "next";
 import { serialize } from "cookie";
 
 const secret = process.env.SECRET;
+console.log("secret",secret);
+
 export async function POST(Request: Request, res: NextApiResponse) {
   const req = await Request.json();
   const username: string = req.username;
+  const user = await prisma?.user.findUnique({
+    where: {
+      username: username,
+    },
+  });
+  if (!user) {
+    return NextResponse.json({err : "user not found"},{status : 404})
+  }
+
   try {
-    const user = await prisma?.user.findUnique({
-      where: {
-        username: username,
-      },
-    });
+    
     const pwdobj = await prisma?.password.findUnique({
       where: {
         userId: user?.id,

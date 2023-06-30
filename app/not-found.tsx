@@ -5,7 +5,7 @@ export default function Notfound() {
         <div className="bg-gray-700 w-fit h-fit py-2 px-5 animate-pulse text-center">
           Error 404
         </div>
-        <div className="bg-gray-700 w-[40%] h-40 animate-pulse flex justify-center items-center text-4xl">
+        <div className="">
           Page Not Found🤔
         </div>
       </div>

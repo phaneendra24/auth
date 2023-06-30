@@ -14,9 +14,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const logout = async () => {
-    const resp = await fetch("http://localhost:3000/api/auth/logout");
-  };
+  
   return (
     <html lang="en">
       <body className={inter.className}>

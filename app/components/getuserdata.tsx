@@ -18,7 +18,6 @@ export default function Getuserdata() {
       setLoading(false);
     }
     const data = await resp.json();
-
     setname(data.username);
     setrole(data.role);
     return data;
