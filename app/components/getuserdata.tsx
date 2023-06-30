@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DOMAIN } from "../utils/url";
 
 export default function Getuserdata() {
@@ -13,16 +13,17 @@ export default function Getuserdata() {
         "Content-Type": "application/json",
       },
     });
-    console.log("status", resp.status);
+    const data = await resp.json();
+
     if (resp.status === 200) {
       setLoading(false);
     }
-    const data = await resp.json();
     setname(data.username);
     setrole(data.role);
-    return data;
   };
-  fetchdata();
+  useEffect(()=>{
+    fetchdata();
+  },[])
   return (
     <>
       <div className="text-white w-fit flex justify-between gap-10 sm:gap-20">

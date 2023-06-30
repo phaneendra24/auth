@@ -14,8 +14,7 @@ export async function middleware(req: NextRequest) {
     if (verifyStatus && path !== "/login") {
       console.log("validated");
       return NextResponse.next();
-    }
-    console.log("Redirecting");
+    } 
     return NextResponse.redirect(`${DOMAIN}/login`);
   } catch (e) {
     console.log(e);

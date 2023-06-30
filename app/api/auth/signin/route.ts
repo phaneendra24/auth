@@ -5,7 +5,6 @@ import { NextApiResponse } from "next";
 import { serialize } from "cookie";
 
 const secret = process.env.SECRET;
-console.log("secret",secret);
 
 export async function POST(Request: Request, res: NextApiResponse) {
   const req = await Request.json();

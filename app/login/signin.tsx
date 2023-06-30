@@ -14,7 +14,6 @@ export default function Signin() {
   const [pwd, setpwd] = useState("");
   const [visible, setvisible] = useState(false);
 
-  const [id, updateid] = useStore((state: any) => [state.id, state.updateid]);
 
   const signinsubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +30,7 @@ export default function Signin() {
     console.log(data);
     
     if (resp.status === 200) {
-      updateid(data.id);
-      router.push("/")
+      router.push(`${DOMAIN}`)
     }
   };
 
