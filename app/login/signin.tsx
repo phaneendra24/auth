@@ -16,12 +16,14 @@ export default function Signin() {
   const [visible, setvisible] = useState(false);
 
   // ui statuses
+  const [loading, setloading] = useState(false);
   const [userfound, setuserfound] = useState(true);
   const [pwdstatus, setpwdstatus] = useState(true);
   const [rolestatus, setrolestatus] = useState(true);
   // signin form submission
   const signinsubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setloading(true);
     const resp = await fetch(`${DOMAIN}/api/auth/signin/`, {
       method: "POST",
       headers: {
@@ -36,17 +38,21 @@ export default function Signin() {
     });
     const data = await resp.json();
     if (resp.status === 200) {
+      setloading(false);
       setpwdstatus(true);
       router.push(`${DOMAIN}`);
     } else if (resp.status == 401) {
+      setloading(false);
       setuserfound(true);
       setpwdstatus(false);
       setrolestatus(true);
     } else if (resp.status == 409) {
+      setloading(false);
       setuserfound(false);
       setpwdstatus(true);
       setrolestatus(true);
     } else if (resp.status == 412) {
+      setloading(false);
       setuserfound(true);
       setpwdstatus(true);
       setrolestatus(false);
@@ -135,7 +141,9 @@ export default function Signin() {
         </span>
       </div>
       <button
-        className="w-full mt-5 px-5 py-3 bg-black text-white"
+        className={`w-full mt-5 px-5 py-3 bg-black text-white ${
+          !loading ? "" : "disabled cursor-not-allowed opacity-30 animate-pulse"
+        }`}
         type="submit"
       >
         submit
