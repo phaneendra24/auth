@@ -34,6 +34,7 @@
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.3",
     "@types/jsonwebtoken": "^9.0.2",
+    "prettier-eslint": "^15.0.1",
     "prisma": "^4.15.0"
   }
 }

@@ -21,30 +21,26 @@ export default function Getuserdata() {
     setname(data.username);
     setrole(data.role);
   };
-  useEffect(()=>{
+  useEffect(() => {
     fetchdata();
-  },[])
+  }, []);
   return (
     <>
-      <div className="text-white w-fit flex justify-between gap-10 sm:gap-20">
+      <div className="bg-red text-white w-fit flex items-center gap-10 sm:gap-20">
         <span className="w-fit p-2 bg-slate-900 rounded-lg">Name</span>
-        <span>
-          {Loading ? (
-            <div className="h-5 w-full bg-gray-900 animate-pulse"></div>
-          ) : (
-            <div className="p-1 rounded-sm w-fit bg-black">{name}</div>
-          )}
-        </span>
+        {Loading ? (
+          <div className="h-5 w-full bg-gray-900 animate-pulse"></div>
+        ) : (
+          <div className="p-1 rounded-sm w-fit bg-black">{name}</div>
+        )}
       </div>
       <div className="text-white w-fit flex justify-between gap-10 sm:gap-20 mt-5 pl-3">
         <span className="w-fit p-2 bg-slate-900 rounded-lg">Role</span>
-        <span>
-          {Loading ? (
-            <div className="h-5 w-full bg-gray-900 animate-pulse"></div>
-          ) : (
-            <div className="p-1 rounded-sm w-fit bg-black">{role}</div>
-          )}
-        </span>
+        {Loading ? (
+          <div className="h-5 w-full bg-gray-900 animate-pulse"></div>
+        ) : (
+          <div className="p-1 rounded-sm w-fit bg-black">{role}</div>
+        )}
       </div>
     </>
   );

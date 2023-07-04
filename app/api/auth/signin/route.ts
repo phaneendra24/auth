@@ -14,19 +14,20 @@ export async function POST(Request: Request, res: NextApiResponse) {
       username: username,
     },
   });
+  const submittedrole = req.role;
+  console.log(submittedrole);
+
   if (!user) {
-    return NextResponse.json({err : "user not found"},{status : 404})
+    return NextResponse.json({ err: "user not found" }, { status: 409 });
   }
 
   try {
-    
-    const pwdobj = await prisma?.password.findUnique({
+    const pwdindb = await prisma?.password.findUnique({
       where: {
         userId: user?.id,
       },
     });
-
-    if (pwdobj?.pwd !== req.password) {
+    if (pwdindb?.pwd !== req.password) {
       return NextResponse.json(
         {
           error: "password incorrect",
@@ -35,6 +36,9 @@ export async function POST(Request: Request, res: NextApiResponse) {
           status: 401,
         }
       );
+    }
+    if (submittedrole != user.role) {
+      return NextResponse.json({ err: "role incorrect" }, { status: 412 });
     }
     const token = jwt.sign({ id: user?.id }, `${secret}`);
 

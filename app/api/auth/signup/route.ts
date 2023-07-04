@@ -14,6 +14,7 @@ export async function POST(request: Request) {
     })
   }
   try {
+
     const role = req.role
     const resp = await prisma.user.create({
       data: {
